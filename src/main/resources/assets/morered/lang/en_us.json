@@ -46,6 +46,7 @@
 	"block.morered.bitwise_and_gate": "Bitwise AND Gate",
 	"block.morered.bitwise_xor_gate": "Bitwise XOR Gate",
 	"block.morered.bitwise_xnor_gate": "Bitwise XNOR Gate",
+	"block.morered.arithmetic_add_gate": "Arithmetic ADD Gate",
 	"item.morered.redwire_spool": "Redwire Spool",
 	"item.morered.bundled_cable_spool": "Bundled Cable Spool",
 	"item.morered.red_alloy_ingot": "Red Alloy Ingot"

@@ -16,9 +16,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class SingleInputBitwiseLogicPlateBlock extends BitwiseLogicPlateBlock
 {
-	private final LogicFunction operator;
+	private final BusLogicFunction operator;
 
 	public SingleInputBitwiseLogicPlateBlock(Properties properties, LogicFunction operator)
+	{
+		super(properties);
+		this.operator = BusLogicFunction.wrapSingle(operator);
+	}
+	public SingleInputBitwiseLogicPlateBlock(Properties properties, BusLogicFunction operator)
 	{
 		super(properties);
 		this.operator = operator;
@@ -40,11 +45,18 @@ public class SingleInputBitwiseLogicPlateBlock extends BitwiseLogicPlateBlock
 				? BitwiseLogicPlateBlock.NO_POWER_SUPPLIER
 				: inputTE.getCapability(MoreRedAPI.CHANNELED_POWER_CAPABILITY, inputDir.getOpposite()).orElse(NO_POWER_SUPPLIER);
 			Direction attachmentDir = thisState.getValue(PlateBlockStateProperties.ATTACHMENT_DIRECTION);
+			char a = 0;
 			for (int i=0; i<16; i++)
 			{
 				byte inputPower = (byte)inputSupplier.getPowerOnChannel(level, thisPos, thisState, attachmentDir, i);
 				boolean inputBit = inputPower > 0;
-				boolean outputBit = this.operator.apply(false, inputBit, false);
+				if (inputBit)
+					a = (char)(a | (1 << i));
+			}
+			char out = this.operator.apply(a,(char) 0);
+			for (int i=0; i<16; i++)
+			{
+				boolean outputBit = ((out >> i) & 1) == 1;
 				power[i] = (byte) (outputBit ? 31 : 0);
 			}
 			

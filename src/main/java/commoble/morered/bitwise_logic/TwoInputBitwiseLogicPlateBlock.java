@@ -18,9 +18,14 @@ import net.minecraft.world.level.Level;
 
 public class TwoInputBitwiseLogicPlateBlock extends BitwiseLogicPlateBlock
 {
-	private final LogicFunction operator;
+	private final BusLogicFunction operator;
 
 	public TwoInputBitwiseLogicPlateBlock(Properties properties, LogicFunction operator)
+	{
+		super(properties);
+		this.operator = BusLogicFunction.wrapDouble(operator);
+	}
+	public TwoInputBitwiseLogicPlateBlock(Properties properties, BusLogicFunction operator)
 	{
 		super(properties);
 		this.operator = operator;
@@ -47,14 +52,22 @@ public class TwoInputBitwiseLogicPlateBlock extends BitwiseLogicPlateBlock
 			ChanneledPowerSupplier inputC = inputTileC == null
 				? BitwiseLogicPlateBlock.NO_POWER_SUPPLIER
 				: inputTileC.getCapability(MoreRedAPI.CHANNELED_POWER_CAPABILITY, inputSideC.getOpposite()).orElse(NO_POWER_SUPPLIER);
+			char a = 0, b = 0;
 			for (int i=0; i<16; i++)
 			{
 				boolean inputBitA = inputA.getPowerOnChannel(world, thisPos, thisState, attachmentDir, i) > 0;
 				boolean inputBitC = inputC.getPowerOnChannel(world, thisPos, thisState, attachmentDir, i) > 0;
-				boolean outputBit = this.operator.apply(inputBitA, false, inputBitC);
+				if (inputBitA)
+					a = (char)(a | (1 << i));
+				if (inputBitC)
+					b = (char)(b | (1 << i));
+			}
+			char out = this.operator.apply(a, b);
+			for (int i=0; i<16; i++)
+			{
+				boolean outputBit = ((out >> i) & 1) == 1;
 				power[i] = (byte) (outputBit ? 31 : 0);
 			}
-			
 			logicTE.setPower(power);
 		}
 	}

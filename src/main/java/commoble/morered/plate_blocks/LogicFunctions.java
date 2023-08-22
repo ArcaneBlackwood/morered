@@ -1,11 +1,13 @@
 package commoble.morered.plate_blocks;
 
+import commoble.morered.bitwise_logic.BusLogicFunction;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
 public class LogicFunctions
 {
 	public static final Int2ObjectMap<LogicFunction> TINTINDEXES = new Int2ObjectOpenHashMap<>();
+	public static final Int2ObjectMap<BusLogicFunction> TINTINDEXES_BUS = new Int2ObjectOpenHashMap<>();
 	
 	// we explicitly enumerate these because the model jsons' tintindexes need literal ints and I want to see which ints are for what
 	// particles have tintindex 0 for some reason, start counting at 1 so we don't tint particles
@@ -33,10 +35,29 @@ public class LogicFunctions
 	// two input AND gate (does not use B input)
 	public static final LogicFunction AND_2 = registerTintIndex(20, (a,b,c) -> a && c);
 	public static final LogicFunction NAND_2 = registerTintIndex(21, (a,b,c) -> !(a && c));
+	
+	public static final BusLogicFunction ADD = registerTintIndex(1, (a,b) -> (char)(a+b));
+	public static final BusLogicFunction SUB = registerTintIndex(2, (a,b) -> (char)(a-b));
+	public static final BusLogicFunction MUL = registerTintIndex(3, (a,b) -> (char)(a*b));
+	public static final BusLogicFunction DIV = registerTintIndex(4, (a,b) -> (char)(a/b));
+	public static final BusLogicFunction MOD = registerTintIndex(5, (a,b) -> (char)(a%b));
+	public static final BusLogicFunction SHIFT_UP = registerTintIndex(7, (a,b) -> (char)(a>>b));
+	public static final BusLogicFunction SHIFT_DOWN = registerTintIndex(8, (a,b) -> (char)(a<<b));
+	public static final BusLogicFunction POW = registerTintIndex(6, (a,b) -> {
+		char result = 1;
+		for (int i = 1; i <= b; i++)
+		   result *= a;
+		return result;
+	});
 
 	public static LogicFunction registerTintIndex(int index, LogicFunction function)
 	{
 		TINTINDEXES.put(index, function);
+		return function;
+	}
+	public static BusLogicFunction registerTintIndex(int index, BusLogicFunction function)
+	{
+		TINTINDEXES_BUS.put(index, function);
 		return function;
 	}
 }

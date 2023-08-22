@@ -49,6 +49,8 @@ public class ObjectNames
 	public static final String BITWISE_AND_GATE = "bitwise_and_gate";
 	public static final String BITWISE_XOR_GATE = "bitwise_xor_gate";
 	public static final String BITWISE_XNOR_GATE = "bitwise_xnor_gate";
+	
+	public static final String ARITHMETIC_ADD_GATE = "arithmetic_add_gate";
 
 	// raw items
 	public static final String RED_ALLOY_INGOT = "red_alloy_ingot";

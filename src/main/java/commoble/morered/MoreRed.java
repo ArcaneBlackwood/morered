@@ -23,6 +23,7 @@ import commoble.morered.api.WireConnector;
 import commoble.morered.api.internal.APIRegistries;
 import commoble.morered.api.internal.DefaultWireProperties;
 import commoble.morered.bitwise_logic.BitwiseLogicPlateBlock;
+import commoble.morered.bitwise_logic.BusLogicFunction;
 import commoble.morered.bitwise_logic.ChanneledPowerStorageBlockEntity;
 import commoble.morered.bitwise_logic.SingleInputBitwiseLogicPlateBlock;
 import commoble.morered.bitwise_logic.TwoInputBitwiseLogicPlateBlock;
@@ -267,6 +268,9 @@ public class MoreRed
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.BITWISE_AND_GATE, LogicFunctions.AND_2, twoInputs);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.BITWISE_XOR_GATE, LogicFunctions.XOR_AC, twoInputs);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.BITWISE_XNOR_GATE, LogicFunctions.XNOR_AC, twoInputs);
+
+		BiFunction<BlockBehaviour.Properties, BusLogicFunction, TwoInputBitwiseLogicPlateBlock> twoBusInputs = TwoInputBitwiseLogicPlateBlock::new;
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_ADD_GATE, LogicFunctions.ADD, twoBusInputs);
 
 		redwireSpoolItem = items.register(ObjectNames.REDWIRE_SPOOL, () -> new WireSpoolItem(new Item.Properties().durability(64), MoreRed.Tags.Blocks.REDWIRE_POSTS));
 		bundledCableSpoolItem = items.register(ObjectNames.BUNDLED_CABLE_SPOOL, () -> new WireSpoolItem(new Item.Properties().durability(64), MoreRed.Tags.Blocks.BUNDLED_CABLE_POSTS));
@@ -656,6 +660,16 @@ public class MoreRed
 	public <B extends BitwiseLogicPlateBlock> RegistryObject<B> registerBitwiseLogicGateType(DeferredRegister<Block> blocks, DeferredRegister<Item> items, String name,
 		LogicFunction function,
 		BiFunction<BlockBehaviour.Properties, LogicFunction, B> blockFactory)
+	{
+		Supplier<B> actualBlockFactory = () -> blockFactory.apply(
+			BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASEDRUM).strength(0F).sound(SoundType.WOOD), function);
+		RegistryObject<B> rob = registerBlockItem(blocks, items, name, actualBlockFactory);
+		bitwiseLogicPlates.put(rob.getId(), rob);
+		return rob;
+	}
+	public <B extends BitwiseLogicPlateBlock> RegistryObject<B> registerBitwiseLogicGateType(DeferredRegister<Block> blocks, DeferredRegister<Item> items, String name,
+			BusLogicFunction function,
+			BiFunction<BlockBehaviour.Properties, BusLogicFunction, B> blockFactory)
 	{
 		Supplier<B> actualBlockFactory = () -> blockFactory.apply(
 			BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASEDRUM).strength(0F).sound(SoundType.WOOD), function);
