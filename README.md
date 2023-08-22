@@ -1,6 +1,6 @@
 Fork of More Red, adding a few more bits and bobs!
 
-I plan for arrays to have top/bottom to work as a cable, with a similar attributes for left/right.  The top/bottoms value is treated as an input for left/right.  Inspired by [Project Red's array logic] (https://projectredwiki.com/wiki/Invert_Cell)
+I plan for arrays to have top/bottom to work as a cable, with a similar attributes for left/right.  The top/bottoms value is treated as an input for left/right.  Inspired by [Project Red's array logic](https://projectredwiki.com/wiki/Invert_Cell)
 
 - [ ] Arithmetic 
 	- [x] Add 
