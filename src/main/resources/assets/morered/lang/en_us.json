@@ -47,6 +47,13 @@
 	"block.morered.bitwise_xor_gate": "Bitwise XOR Gate",
 	"block.morered.bitwise_xnor_gate": "Bitwise XNOR Gate",
 	"block.morered.arithmetic_add_gate": "Arithmetic ADD Gate",
+	"block.morered.arithmetic_sub_gate": "Arithmetic SUB Gate",
+	"block.morered.arithmetic_mul_gate": "Arithmetic MUL Gate",
+	"block.morered.arithmetic_div_gate": "Arithmetic DIV Gate",
+	"block.morered.arithmetic_mod_gate": "Arithmetic MOD Gate",
+	"block.morered.arithmetic_pow_gate": "Arithmetic POW Gate",
+	"block.morered.arithmetic_shift_up_gate": "Arithmetic Shift Up Gate",
+	"block.morered.arithmetic_shift_down_gate": "Arithmetic Shift Down Gate",
 	"item.morered.redwire_spool": "Redwire Spool",
 	"item.morered.bundled_cable_spool": "Bundled Cable Spool",
 	"item.morered.red_alloy_ingot": "Red Alloy Ingot"

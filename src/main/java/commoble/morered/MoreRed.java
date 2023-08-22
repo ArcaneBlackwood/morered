@@ -271,6 +271,12 @@ public class MoreRed
 
 		BiFunction<BlockBehaviour.Properties, BusLogicFunction, TwoInputBitwiseLogicPlateBlock> twoBusInputs = TwoInputBitwiseLogicPlateBlock::new;
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_ADD_GATE, LogicFunctions.ADD, twoBusInputs);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_SUB_GATE, LogicFunctions.SUB, twoBusInputs);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_MUL_GATE, LogicFunctions.MUL, twoBusInputs);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_DIV_GATE, LogicFunctions.DIV, twoBusInputs);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_MOD_GATE, LogicFunctions.MOD, twoBusInputs);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_SHIFT_UP_GATE, LogicFunctions.SHIFT_UP, twoBusInputs);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_SHIFT_DOWN_GATE, LogicFunctions.SHIFT_DOWN, twoBusInputs);
 
 		redwireSpoolItem = items.register(ObjectNames.REDWIRE_SPOOL, () -> new WireSpoolItem(new Item.Properties().durability(64), MoreRed.Tags.Blocks.REDWIRE_POSTS));
 		bundledCableSpoolItem = items.register(ObjectNames.BUNDLED_CABLE_SPOOL, () -> new WireSpoolItem(new Item.Properties().durability(64), MoreRed.Tags.Blocks.BUNDLED_CABLE_POSTS));

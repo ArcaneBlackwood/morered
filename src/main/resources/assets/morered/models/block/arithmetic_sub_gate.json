@@ -1,0 +1,6 @@
+{
+	"parent": "morered:block/arithmetic_logic_plate_template",
+	"textures": {
+		"symbol": "morered:block/sub_arithmetic_symbol"
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"parent": "morered:block/arithmetic_logic_plate_template_alt",
+	"textures": {
+		"symbol": "morered:block/pow_arithmetic_symbol"
+	}
+}

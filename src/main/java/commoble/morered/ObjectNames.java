@@ -51,6 +51,12 @@ public class ObjectNames
 	public static final String BITWISE_XNOR_GATE = "bitwise_xnor_gate";
 	
 	public static final String ARITHMETIC_ADD_GATE = "arithmetic_add_gate";
+	public static final String ARITHMETIC_SUB_GATE = "arithmetic_sub_gate";
+	public static final String ARITHMETIC_MUL_GATE = "arithmetic_mul_gate";
+	public static final String ARITHMETIC_DIV_GATE = "arithmetic_div_gate";
+	public static final String ARITHMETIC_MOD_GATE = "arithmetic_mod_gate";
+	public static final String ARITHMETIC_SHIFT_UP_GATE = "arithmetic_shift_up_gate";
+	public static final String ARITHMETIC_SHIFT_DOWN_GATE = "arithmetic_shift_down_gate";
 
 	// raw items
 	public static final String RED_ALLOY_INGOT = "red_alloy_ingot";
