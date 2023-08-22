@@ -36,14 +36,15 @@ public class LogicFunctions
 	public static final LogicFunction AND_2 = registerTintIndex(20, (a,b,c) -> a && c);
 	public static final LogicFunction NAND_2 = registerTintIndex(21, (a,b,c) -> !(a && c));
 	
-	public static final BusLogicFunction ADD = registerTintIndex(1, (a,b) -> (char)(a+b));
-	public static final BusLogicFunction SUB = registerTintIndex(2, (a,b) -> (char)(a-b));
-	public static final BusLogicFunction MUL = registerTintIndex(3, (a,b) -> (char)(a*b));
-	public static final BusLogicFunction DIV = registerTintIndex(4, (a,b) -> (char)(a/b));
-	public static final BusLogicFunction MOD = registerTintIndex(5, (a,b) -> (char)(a%b));
-	public static final BusLogicFunction SHIFT_UP = registerTintIndex(7, (a,b) -> (char)(a>>b));
-	public static final BusLogicFunction SHIFT_DOWN = registerTintIndex(8, (a,b) -> (char)(a<<b));
-	public static final BusLogicFunction POW = registerTintIndex(6, (a,b) -> {
+	//Swapped inputs (a <> b) makes more sense in game, since B is on the left.
+	public static final BusLogicFunction ADD = registerTintIndex(1, (b,a) -> (char)(a+b));
+	public static final BusLogicFunction SUB = registerTintIndex(2, (b,a) -> (char)(a-b));
+	public static final BusLogicFunction MUL = registerTintIndex(3, (b,a) -> (char)(a*b));
+	public static final BusLogicFunction DIV = registerTintIndex(4, (b,a) -> (char)(a/b));
+	public static final BusLogicFunction MOD = registerTintIndex(5, (b,a) -> (char)(a%b));
+	public static final BusLogicFunction SHIFT_UP = registerTintIndex(7, (b,a) -> (char)(a>>b));
+	public static final BusLogicFunction SHIFT_DOWN = registerTintIndex(8, (b,a) -> (char)(a<<b));
+	public static final BusLogicFunction POW = registerTintIndex(6, (b,a) -> {
 		char result = 1;
 		for (int i = 1; i <= b; i++)
 		   result *= a;
