@@ -40,8 +40,8 @@ public class LogicFunctions
 	public static final BusLogicFunction ADD = registerTintIndex(1, (b,a) -> (char)(a+b));
 	public static final BusLogicFunction SUB = registerTintIndex(2, (b,a) -> (char)(a-b));
 	public static final BusLogicFunction MUL = registerTintIndex(3, (b,a) -> (char)(a*b));
-	public static final BusLogicFunction DIV = registerTintIndex(4, (b,a) -> (char)(a/b));
-	public static final BusLogicFunction MOD = registerTintIndex(5, (b,a) -> (char)(a%b));
+	public static final BusLogicFunction DIV = registerTintIndex(4, (b,a) -> (char)(b == 0 ? 0 : a/b));
+	public static final BusLogicFunction MOD = registerTintIndex(5, (b,a) -> (char)(b == 0 ? 0 : a%b));
 	public static final BusLogicFunction SHIFT_UP = registerTintIndex(7, (b,a) -> (char)(a>>b));
 	public static final BusLogicFunction SHIFT_DOWN = registerTintIndex(8, (b,a) -> (char)(a<<b));
 	public static final BusLogicFunction POW = registerTintIndex(6, (b,a) -> {
