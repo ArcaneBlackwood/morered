@@ -1,3 +1,43 @@
+Fork of More Red, adding a few more bits and bobs!
+
+I plan for arrays to have top/bottom to work as a cable, with a similar attributes for left/right.  The top/bottoms value is treated as an input for left/right.  Inspired by [Project Red's array logic] (https://projectredwiki.com/wiki/Invert_Cell)
+
+- [ ] Arithmetic 
+	- [x] Add 
+	- [x] Bit Shift 
+	- [x] Multiply 
+	- [x] Divide 
+	- [x] Modulo 
+	- [x] Power 
+	- [ ] Square root 
+	- [ ] Equal 
+	- [ ] Not Equal 
+	- [ ] Greater 
+	- [ ] Less 
+- [ ] Arrays (Useful for memory) 
+	- [ ] Null / Passthrough 
+	- [ ] Buffer 
+	- [ ] Invert 
+ - [ ] Inter-bit logic / Bit combination to single output 
+	- [ ] OR 
+	- [ ] AND 
+	- [ ] XOR 
+- [ ] New single and network cable gates 
+	- [ ] Controlled Diode 
+	- [ ] D Latch 
+	- [ ] JK Flip flop 
+- [ ] Analog gates 
+	- [ ] Diode 
+	- [ ] Add 
+	- [ ] Subtract 
+	- [ ] To Digital / Network cable 
+	- [ ] From Digital / Network cable 
+	- [ ] potentiometer 
+- [ ] Network cable switch board block 
+- [ ] Network cable light matrix array block 
+
+---
+
 More Red is a minecraft mod that uses the forge modloader.
 
 Built jars are available here
