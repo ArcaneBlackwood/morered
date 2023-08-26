@@ -12,6 +12,8 @@ import com.google.common.collect.ImmutableSet;
 
 import commoble.morered.MoreRed;
 import commoble.morered.ObjectNames;
+import commoble.morered.bitwise_logic.SingleInputBitwiseAnalogLogicPlateBlock;
+import commoble.morered.bitwise_logic.TwoInputBitwiseAnalogLogicPlateBlock;
 import commoble.morered.mixin.MultiPlayerGameModeAccess;
 import commoble.morered.plate_blocks.PlateBlock;
 import commoble.morered.plate_blocks.PlateBlockStateProperties;
@@ -161,6 +163,10 @@ public class ClientProxy
 
 	public static void onRegisterBlockColors(RegisterColorHandlersEvent.Block event)
 	{
+		MoreRed.get().bitwiseLogicPlates.values().forEach(rob -> {
+			if (rob.get() instanceof TwoInputBitwiseAnalogLogicPlateBlock || rob.get() instanceof SingleInputBitwiseAnalogLogicPlateBlock)
+				event.register(ColorHandlers::getBitwiseLogicFunctionBlockTint, rob.get());
+		});
 		MoreRed.get().logicPlates.values().forEach(rob -> event.register(ColorHandlers::getLogicFunctionBlockTint, rob.get()));
 		event.register(ColorHandlers::getLatchBlockTint, MoreRed.get().latchBlock.get());
 		event.register(ColorHandlers::getPulseGateBlockTint, MoreRed.get().pulseGateBlock.get());

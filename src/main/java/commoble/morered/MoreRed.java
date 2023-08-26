@@ -24,10 +24,14 @@ import commoble.morered.api.internal.APIRegistries;
 import commoble.morered.api.internal.DefaultWireProperties;
 import commoble.morered.bitwise_logic.BitwiseLogicPlateBlock;
 import commoble.morered.bitwise_logic.BusLogicFunction;
+import commoble.morered.bitwise_logic.BusToSingleFunction;
 import commoble.morered.bitwise_logic.ChanneledPowerStorageBlockEntity;
+import commoble.morered.bitwise_logic.SingleInputBitwiseAnalogLogicPlateBlock;
 import commoble.morered.bitwise_logic.SingleInputBitwiseLogicPlateBlock;
 import commoble.morered.bitwise_logic.TwoInputBitwiseLogicPlateBlock;
+import commoble.morered.bitwise_logic.TwoInputBitwiseAnalogLogicPlateBlock;
 import commoble.morered.client.ClientProxy;
+import commoble.morered.plate_blocks.AnalogPowerStorageBlockEntity;
 import commoble.morered.plate_blocks.LatchBlock;
 import commoble.morered.plate_blocks.LogicFunction;
 import commoble.morered.plate_blocks.LogicFunctionPlateBlock;
@@ -188,6 +192,7 @@ public class MoreRed
 	public final RegistryObject<BlockEntityType<BundledCablePostBlockEntity>> bundledCablePostBeType;
 	public final RegistryObject<BlockEntityType<BundledCableRelayPlateBlockEntity>> bundledCableRelayPlateBeType;
 	public final RegistryObject<BlockEntityType<ChanneledPowerStorageBlockEntity>> bitwiseLogicGateBeType;
+	public final RegistryObject<BlockEntityType<AnalogPowerStorageBlockEntity>> analogLogicGateBeType;
 
 	public final RegistryObject<MenuType<SolderingMenu>> solderingMenuType;
 	public final RegistryObject<SolderingRecipeSerializer> solderingSerializer;
@@ -213,6 +218,7 @@ public class MoreRed
 		DeferredRegister<RecipeSerializer<?>> recipeSerializers = createDeferredRegister(modBus, Registries.RECIPE_SERIALIZER);
 		DeferredRegister<RecipeType<?>> recipeTypes = createDeferredRegister(modBus, Registries.RECIPE_TYPE);
 		DeferredRegister<LootItemFunctionType> lootFunctions = createDeferredRegister(modBus, Registries.LOOT_FUNCTION_TYPE);
+		
 		
 		solderingTableBlock = registerBlockItem(blocks, items, ObjectNames.SOLDERING_TABLE,
 			() -> new SolderingTableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.5F).noOcclusion()));
@@ -278,6 +284,17 @@ public class MoreRed
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_SHIFT_UP_GATE, LogicFunctions.SHIFT_UP, twoBusInputs);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_SHIFT_DOWN_GATE, LogicFunctions.SHIFT_DOWN, twoBusInputs);
 
+		BiFunction<BlockBehaviour.Properties, BusToSingleFunction, TwoInputBitwiseAnalogLogicPlateBlock> twoBusToSingle = TwoInputBitwiseAnalogLogicPlateBlock::new;
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_EQL_GATE, LogicFunctions.EQL, twoBusToSingle);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_NEQ_GATE, LogicFunctions.NEQ, twoBusToSingle);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_LES_GATE, LogicFunctions.LES, twoBusToSingle);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_GRE_GATE, LogicFunctions.GRE, twoBusToSingle);
+
+		BiFunction<BlockBehaviour.Properties, BusToSingleFunction, SingleInputBitwiseAnalogLogicPlateBlock> singleBusToSingle = SingleInputBitwiseAnalogLogicPlateBlock::new;
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_BITS_AND_GATE, LogicFunctions.BAND, singleBusToSingle);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_BITS_OR_GATE, LogicFunctions.BOR, singleBusToSingle);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_BITS_XOR_GATE, LogicFunctions.BXOR, singleBusToSingle);
+
 		redwireSpoolItem = items.register(ObjectNames.REDWIRE_SPOOL, () -> new WireSpoolItem(new Item.Properties().durability(64), MoreRed.Tags.Blocks.REDWIRE_POSTS));
 		bundledCableSpoolItem = items.register(ObjectNames.BUNDLED_CABLE_SPOOL, () -> new WireSpoolItem(new Item.Properties().durability(64), MoreRed.Tags.Blocks.BUNDLED_CABLE_POSTS));
 		redAlloyIngotItem = items.register(ObjectNames.RED_ALLOY_INGOT, () -> new Item(new Item.Properties()));
@@ -324,9 +341,20 @@ public class MoreRed
 				{	// valid blocks are all of the bitwise logic gate blocks registered from LogicGateType
 					return this.bitwiseLogicPlates.values().stream()
 						.map(rob -> rob.get())
+						.filter(rob -> (rob instanceof SingleInputBitwiseLogicPlateBlock || rob instanceof TwoInputBitwiseLogicPlateBlock))
 						.toArray(Block[]::new);
 				}))
 			.build(null));
+		analogLogicGateBeType = blockEntityTypes.register(ObjectNames.BITWISE_ANALOG_LOGIC_PLATE,
+				() -> BlockEntityType.Builder.of(AnalogPowerStorageBlockEntity::new,
+						Util.make(() ->
+						{	// valid blocks are all of the bitwise logic gate blocks registered from LogicGateType
+							return this.bitwiseLogicPlates.values().stream()
+								.map(rob -> rob.get())
+								.filter(rob -> rob instanceof SingleInputBitwiseAnalogLogicPlateBlock || rob instanceof TwoInputBitwiseAnalogLogicPlateBlock)
+								.toArray(Block[]::new);
+						}))
+					.build(null));
 
 		solderingMenuType = menuTypes.register(ObjectNames.SOLDERING_TABLE,
 			() -> new MenuType<>(SolderingMenu::getClientContainer, FeatureFlags.VANILLA_SET));
@@ -663,19 +691,9 @@ public class MoreRed
 		return blockGetter;
 	}
 	
-	public <B extends BitwiseLogicPlateBlock> RegistryObject<B> registerBitwiseLogicGateType(DeferredRegister<Block> blocks, DeferredRegister<Item> items, String name,
-		LogicFunction function,
-		BiFunction<BlockBehaviour.Properties, LogicFunction, B> blockFactory)
-	{
-		Supplier<B> actualBlockFactory = () -> blockFactory.apply(
-			BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASEDRUM).strength(0F).sound(SoundType.WOOD), function);
-		RegistryObject<B> rob = registerBlockItem(blocks, items, name, actualBlockFactory);
-		bitwiseLogicPlates.put(rob.getId(), rob);
-		return rob;
-	}
-	public <B extends BitwiseLogicPlateBlock> RegistryObject<B> registerBitwiseLogicGateType(DeferredRegister<Block> blocks, DeferredRegister<Item> items, String name,
-			BusLogicFunction function,
-			BiFunction<BlockBehaviour.Properties, BusLogicFunction, B> blockFactory)
+	public <B extends BitwiseLogicPlateBlock, F> RegistryObject<B> registerBitwiseLogicGateType(DeferredRegister<Block> blocks, DeferredRegister<Item> items, String name,
+			F function,
+			BiFunction<BlockBehaviour.Properties, F, B> blockFactory)
 	{
 		Supplier<B> actualBlockFactory = () -> blockFactory.apply(
 			BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASEDRUM).strength(0F).sound(SoundType.WOOD), function);

@@ -1,5 +1,9 @@
 package commoble.morered.client;
 
+import java.util.Optional;
+
+import org.apache.logging.log4j.Level;
+
 import commoble.morered.MoreRed;
 import commoble.morered.plate_blocks.InputState;
 import commoble.morered.plate_blocks.LatchBlock;
@@ -10,6 +14,7 @@ import commoble.morered.wire_post.AbstractPoweredWirePostBlock;
 import commoble.morered.wires.Edge;
 import commoble.morered.wires.WireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +32,15 @@ public class ColorHandlers
 	public static final int UNLIT = 0x560000;
 	public static final int LIT_RED = LIT >> 16;
 	public static final int UNLIT_RED = UNLIT >> 16;
-	
+
+	public static int getBitwiseLogicFunctionBlockTint(BlockState state, BlockAndTintGetter lightReader, BlockPos pos, int tintIndex) {
+		if (tintIndex != 1) return NO_TINT;
+		//return getBitwiseLogicFunctionBlockStateTint(state, tintIndex);
+		Optional<Boolean> bool = state.getOptionalValue(BlockStateProperties.POWERED);
+		if (bool.isEmpty())
+			return NO_TINT;
+		return bool.get() ? LIT : UNLIT;
+	}
 	public static int getLogicFunctionBlockTint(BlockState state, BlockAndTintGetter lightReader, BlockPos pos, int tintIndex)
 	{
 		return getLogicFunctionBlockStateTint(state, tintIndex);

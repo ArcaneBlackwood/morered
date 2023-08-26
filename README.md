@@ -10,18 +10,18 @@ I plan for arrays to have top/bottom to work as a cable, with a similar attribut
 	- [x] Modulo 
 	- [x] Power 
 	- [ ] Square root 
-	- [ ] Equal 
-	- [ ] Not Equal 
-	- [ ] Greater 
-	- [ ] Less 
+	- [x] Equal 
+	- [x] Not Equal 
+	- [x] Greater 
+	- [x] Less 
 - [ ] Arrays (Useful for memory) 
 	- [ ] Null / Passthrough 
 	- [ ] Buffer 
 	- [ ] Invert 
- - [ ] Inter-bit logic / Bit combination to single output 
-	- [ ] OR 
-	- [ ] AND 
-	- [ ] XOR 
+ - [x] Inter-bit logic / Bit combination to single output 
+	- [x] OR 
+	- [x] AND 
+	- [x] XOR 
 - [ ] New single and network cable gates 
 	- [ ] Controlled Diode 
 	- [ ] D Latch 

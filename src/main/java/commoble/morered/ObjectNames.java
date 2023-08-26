@@ -58,6 +58,17 @@ public class ObjectNames
 	public static final String ARITHMETIC_SHIFT_UP_GATE = "arithmetic_shift_up_gate";
 	public static final String ARITHMETIC_SHIFT_DOWN_GATE = "arithmetic_shift_down_gate";
 
+	public static final String BITWISE_ANALOG_LOGIC_PLATE = "bitwise_to_analog_logic_plate";
+	
+	public static final String ARITHMETIC_BITS_AND_GATE = "arithmetic_bits_and_gate";
+	public static final String ARITHMETIC_BITS_OR_GATE = "arithmetic_bits_or_gate";
+	public static final String ARITHMETIC_BITS_XOR_GATE = "arithmetic_bits_xor_gate";
+	public static final String ARITHMETIC_EQL_GATE = "arithmetic_bits_eql_gate";
+	public static final String ARITHMETIC_NEQ_GATE = "arithmetic_bits_neq_gate";
+	public static final String ARITHMETIC_GRE_GATE = "arithmetic_bits_gre_gate";
+	public static final String ARITHMETIC_LES_GATE = "arithmetic_bits_les_gate";
+	
+
 	// raw items
 	public static final String RED_ALLOY_INGOT = "red_alloy_ingot";
 	public static final String REDWIRE_SPOOL = "redwire_spool";
