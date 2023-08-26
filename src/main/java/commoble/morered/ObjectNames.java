@@ -55,6 +55,8 @@ public class ObjectNames
 	public static final String ARITHMETIC_MUL_GATE = "arithmetic_mul_gate";
 	public static final String ARITHMETIC_DIV_GATE = "arithmetic_div_gate";
 	public static final String ARITHMETIC_MOD_GATE = "arithmetic_mod_gate";
+	public static final String ARITHMETIC_POW_GATE = "arithmetic_pow_gate";
+	public static final String ARITHMETIC_SQRT_GATE = "arithmetic_sqrt_gate";
 	public static final String ARITHMETIC_SHIFT_UP_GATE = "arithmetic_shift_up_gate";
 	public static final String ARITHMETIC_SHIFT_DOWN_GATE = "arithmetic_shift_down_gate";
 

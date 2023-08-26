@@ -275,22 +275,24 @@ public class MoreRed
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.BITWISE_XOR_GATE, LogicFunctions.XOR_AC, twoInputs);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.BITWISE_XNOR_GATE, LogicFunctions.XNOR_AC, twoInputs);
 
+		BiFunction<BlockBehaviour.Properties, BusLogicFunction, SingleInputBitwiseLogicPlateBlock> singleBusInput = SingleInputBitwiseLogicPlateBlock::new;
 		BiFunction<BlockBehaviour.Properties, BusLogicFunction, TwoInputBitwiseLogicPlateBlock> twoBusInputs = TwoInputBitwiseLogicPlateBlock::new;
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_ADD_GATE, LogicFunctions.ADD, twoBusInputs);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_SUB_GATE, LogicFunctions.SUB, twoBusInputs);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_MUL_GATE, LogicFunctions.MUL, twoBusInputs);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_DIV_GATE, LogicFunctions.DIV, twoBusInputs);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_MOD_GATE, LogicFunctions.MOD, twoBusInputs);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_POW_GATE, LogicFunctions.POW, twoBusInputs);
+		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_SQRT_GATE, LogicFunctions.SQUARE_ROOT, singleBusInput);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_SHIFT_UP_GATE, LogicFunctions.SHIFT_UP, twoBusInputs);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_SHIFT_DOWN_GATE, LogicFunctions.SHIFT_DOWN, twoBusInputs);
 
+		BiFunction<BlockBehaviour.Properties, BusToSingleFunction, SingleInputBitwiseAnalogLogicPlateBlock> singleBusToSingle = SingleInputBitwiseAnalogLogicPlateBlock::new;
 		BiFunction<BlockBehaviour.Properties, BusToSingleFunction, TwoInputBitwiseAnalogLogicPlateBlock> twoBusToSingle = TwoInputBitwiseAnalogLogicPlateBlock::new;
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_EQL_GATE, LogicFunctions.EQL, twoBusToSingle);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_NEQ_GATE, LogicFunctions.NEQ, twoBusToSingle);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_LES_GATE, LogicFunctions.LES, twoBusToSingle);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_GRE_GATE, LogicFunctions.GRE, twoBusToSingle);
-
-		BiFunction<BlockBehaviour.Properties, BusToSingleFunction, SingleInputBitwiseAnalogLogicPlateBlock> singleBusToSingle = SingleInputBitwiseAnalogLogicPlateBlock::new;
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_BITS_AND_GATE, LogicFunctions.BAND, singleBusToSingle);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_BITS_OR_GATE, LogicFunctions.BOR, singleBusToSingle);
 		registerBitwiseLogicGateType(blocks, items, ObjectNames.ARITHMETIC_BITS_XOR_GATE, LogicFunctions.BXOR, singleBusToSingle);

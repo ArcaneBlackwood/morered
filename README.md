@@ -2,14 +2,14 @@ Fork of More Red, adding a few more bits and bobs!
 
 I plan for arrays to have top/bottom to work as a cable, with a similar attributes for left/right.  The top/bottoms value is treated as an input for left/right.  Inspired by [Project Red's array logic](https://projectredwiki.com/wiki/Invert_Cell)
 
-- [ ] Arithmetic 
+- [x] Arithmetic 
 	- [x] Add 
 	- [x] Bit Shift 
 	- [x] Multiply 
 	- [x] Divide 
 	- [x] Modulo 
 	- [x] Power 
-	- [ ] Square root 
+	- [x] Square root 
 	- [x] Equal 
 	- [x] Not Equal 
 	- [x] Greater 
@@ -35,6 +35,7 @@ I plan for arrays to have top/bottom to work as a cable, with a similar attribut
 	- [ ] potentiometer 
 - [ ] Network cable switch board block 
 - [ ] Network cable light matrix array block 
+- [ ] Add crafting recipes
 
 ---
 

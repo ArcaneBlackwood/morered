@@ -13,25 +13,13 @@ public interface BusLogicFunction {
 	 * @param b The second input for a gate, 270 degrees clockwise from the output
 	 * @return Output value
 	 */
-	public char apply(char a, char b);
+	public char apply(char a, char b, char c);
 	
-	
-	static BusLogicFunction wrapSingle(LogicFunction source) {
-		return (a, b) -> {
+	static BusLogicFunction wrap(LogicFunction source) {
+		return (a, b, c) -> {
 			char out = 0;
 			for (int i=0; i<16; i++) {
-				boolean outputBit = source.apply(false, ((a >> i) & 1) == 1, false);
-				if (outputBit)
-					out = (char)(out | (1 << i)); 
-			}
-			return out;
-		};
-	}
-	static BusLogicFunction wrapDouble(LogicFunction source) {
-		return (a, b) -> {
-			char out = 0;
-			for (int i=0; i<16; i++) {
-				boolean outputBit = source.apply(((a >> i) & 1) == 1, false, ((b >> i) & 1) == 1);
+				boolean outputBit = source.apply(((a >> i) & 1) == 1, ((b >> i) & 1) == 1, ((c >> i) & 1) == 1);
 				if (outputBit)
 					out = (char)(out | (1 << i)); 
 			}

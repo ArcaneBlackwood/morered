@@ -52,6 +52,7 @@
 	"block.morered.arithmetic_div_gate": "Arithmetic DIV Gate",
 	"block.morered.arithmetic_mod_gate": "Arithmetic MOD Gate",
 	"block.morered.arithmetic_pow_gate": "Arithmetic POW Gate",
+	"block.morered.arithmetic_sqrt_gate": "Arithmetic SQRT Gate",
 	"block.morered.arithmetic_bits_eql_gate": "Arithmetic EQL Gate",
 	"block.morered.arithmetic_bits_neq_gate": "Arithmetic NEQ Gate",
 	"block.morered.arithmetic_bits_gre_gate": "Arithmetic GRE Gate",

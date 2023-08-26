@@ -39,19 +39,20 @@ public class LogicFunctions
 	public static final LogicFunction NAND_2 = registerTintIndexLog(21, (a,b,c) -> !(a && c));
 	
 	//Swapped inputs (a <> b) makes more sense in game, since B is on the left.
-	public static final BusLogicFunction ADD = registerTintIndexBus(1, (b,a) -> (char)(a+b));
-	public static final BusLogicFunction SUB = registerTintIndexBus(2, (b,a) -> (char)(a-b));
-	public static final BusLogicFunction MUL = registerTintIndexBus(3, (b,a) -> (char)(a*b));
-	public static final BusLogicFunction DIV = registerTintIndexBus(4, (b,a) -> (char)(b == 0 ? 0 : a/b));
-	public static final BusLogicFunction MOD = registerTintIndexBus(5, (b,a) -> (char)(b == 0 ? 0 : a%b));
-	public static final BusLogicFunction SHIFT_UP = registerTintIndexBus(7, (b,a) -> (char)(a>>b));
-	public static final BusLogicFunction SHIFT_DOWN = registerTintIndexBus(8, (b,a) -> (char)(a<<b));
-	public static final BusLogicFunction POW = registerTintIndexBus(6, (b,a) -> {
+	public static final BusLogicFunction ADD = registerTintIndexBus(1, (b,m,a) -> (char)(a+b));
+	public static final BusLogicFunction SUB = registerTintIndexBus(2, (b,m,a) -> (char)(a-b));
+	public static final BusLogicFunction MUL = registerTintIndexBus(3, (b,m,a) -> (char)(a*b));
+	public static final BusLogicFunction DIV = registerTintIndexBus(4, (b,m,a) -> (char)(b == 0 ? 0 : a/b));
+	public static final BusLogicFunction MOD = registerTintIndexBus(5, (b,m,a) -> (char)(b == 0 ? 0 : a%b));
+	public static final BusLogicFunction SHIFT_UP = registerTintIndexBus(7, (b,m,a) -> (char)(a>>b));
+	public static final BusLogicFunction SHIFT_DOWN = registerTintIndexBus(8, (b,m,a) -> (char)(a<<b));
+	public static final BusLogicFunction POW = registerTintIndexBus(6, (b,m,a) -> {
 		char result = 1;
 		for (int i = 1; i <= b; i++)
 		   result *= a;
 		return result;
 	});
+	public static final BusLogicFunction SQUARE_ROOT = registerTintIndexBus(8, (b,m,a) -> (char)(Math.sqrt(m)));
 	
 	public static final BusToSingleFunction EQL = registerTintIndexSing(1, (a, b, c) -> (a==c) ? 16 : 0);
 	public static final BusToSingleFunction NEQ = registerTintIndexSing(2, (a, b, c) -> (a!=c) ? 16 : 0);

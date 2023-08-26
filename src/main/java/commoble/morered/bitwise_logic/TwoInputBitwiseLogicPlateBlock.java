@@ -23,7 +23,7 @@ public class TwoInputBitwiseLogicPlateBlock extends BitwiseLogicPlateBlock
 	public TwoInputBitwiseLogicPlateBlock(Properties properties, LogicFunction operator)
 	{
 		super(properties);
-		this.operator = BusLogicFunction.wrapDouble(operator);
+		this.operator = BusLogicFunction.wrap(operator);
 	}
 	public TwoInputBitwiseLogicPlateBlock(Properties properties, BusLogicFunction operator)
 	{
@@ -62,7 +62,7 @@ public class TwoInputBitwiseLogicPlateBlock extends BitwiseLogicPlateBlock
 				if (inputBitC)
 					b = (char)(b | (1 << i));
 			}
-			char out = this.operator.apply(a, b);
+			char out = this.operator.apply(a, (char)0, b);
 			for (int i=0; i<16; i++)
 			{
 				boolean outputBit = ((out >> i) & 1) == 1;

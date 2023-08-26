@@ -2,8 +2,6 @@ package commoble.morered.client;
 
 import java.util.Optional;
 
-import org.apache.logging.log4j.Level;
-
 import commoble.morered.MoreRed;
 import commoble.morered.plate_blocks.InputState;
 import commoble.morered.plate_blocks.LatchBlock;
