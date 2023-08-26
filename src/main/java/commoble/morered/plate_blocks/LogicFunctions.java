@@ -58,7 +58,7 @@ public class LogicFunctions
 	public static final BusToSingleFunction NEQ = registerTintIndexSing(2, (a, b, c) -> (a!=c) ? 16 : 0);
 	public static final BusToSingleFunction GRE = registerTintIndexSing(3, (a, b, c) -> (c>a) ? 16 : 0);
 	public static final BusToSingleFunction LES = registerTintIndexSing(4, (a, b, c) -> (c<a) ? 16 : 0);
-	public static final BusToSingleFunction BAND = registerTintIndexSing(6, (a, b, c) -> (b!=65535) ? 16 : 0); //All bit one, == 2^16-1
+	public static final BusToSingleFunction BAND = registerTintIndexSing(6, (a, b, c) -> (b==65535) ? 16 : 0); //All bit one, == 2^16-1
 	public static final BusToSingleFunction BOR = registerTintIndexSing(5, (a, b, c) -> (b!=0) ? 16 : 0); //Any bit one
 	public static final BusToSingleFunction BXOR = registerTintIndexSing(7, (a, b, c) -> {
 		boolean state = false;
