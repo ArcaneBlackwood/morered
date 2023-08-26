@@ -1,0 +1,6 @@
+{
+	"parent": "morered:block/arithmetic_analog_logic_plate_template",
+	"textures": {
+		"symbol": "morered:block/eql_arithmetic_symbol"
+	}
+}
