@@ -14,6 +14,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class MultiIndexedVoxelShape extends VoxelShape {
 
 
+    private VoxelShape activeShape;
     private final VoxelShape merged;
     private final ImmutableSet<IndexedVoxelShape> shapes;
     public Object hitShapeData;
@@ -47,6 +48,7 @@ public class MultiIndexedVoxelShape extends VoxelShape {
      */
     public MultiIndexedVoxelShape(VoxelShape merged, ImmutableSet<IndexedVoxelShape> shapes) {
         super(merged.shape);
+		activeShape = merged;
         this.merged = merged;
         this.shapes = shapes;
     }
@@ -65,20 +67,36 @@ public class MultiIndexedVoxelShape extends VoxelShape {
         }
         if (closestHit==null) {
         	this.shape = merged.shape;
+			activeShape = merged;
         	hitShapeData = null;
         } else {
         	this.shape = closestHit.shape.shape;
+			activeShape = closestHit.shape;
         	if (closestHit.shape.getData() instanceof Integer i)
-            	if (i==-1) this.shape = merged.shape;
+        		setActiveShape(i);
         	hitShapeData = closestHit.shape.getData();
         }
 
         return closestHit;
     }
+    public void setActiveShape(int index) {
+    	if (index == -1) {
+    		this.shape = merged.shape;
+			activeShape = merged;
+    		return;
+   		}
+		for (IndexedVoxelShape shape : shapes)
+			if (shape.getData() instanceof Integer i)
+				if (i==index) {
+					this.shape = shape.shape;
+					activeShape = shape;
+					return;
+				}
+    }
 
 	@Override
 	public DoubleList getCoords(Axis axis) {
-        return merged.getCoords(axis);
+        return activeShape.getCoords(axis);
 	}
 
 }

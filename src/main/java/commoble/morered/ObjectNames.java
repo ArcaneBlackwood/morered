@@ -33,6 +33,9 @@ public class ObjectNames
 	
 	public static final String BUNDLED_CABLE_POST = "bundled_cable_post";
 	public static final String BUNDLED_CABLE_RELAY_PLATE = "bundled_cable_relay_plate";
+
+	public static final String MATRIX_INPUT = "matrix_input";
+	public static final String MATRIX_INPUT_ENTITY = "matrix_input_entity";
 	
 	public static final String WIRE = "wire";
 	public static final String RED_ALLOY_WIRE = "red_alloy_wire";

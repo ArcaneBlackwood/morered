@@ -26,6 +26,8 @@ import commoble.morered.bitwise_logic.BitwiseLogicPlateBlock;
 import commoble.morered.bitwise_logic.BusLogicFunction;
 import commoble.morered.bitwise_logic.BusToSingleFunction;
 import commoble.morered.bitwise_logic.ChanneledPowerStorageBlockEntity;
+import commoble.morered.bitwise_logic.MatrixInputBlockEntity;
+import commoble.morered.bitwise_logic.MatrixInputBlock;
 import commoble.morered.bitwise_logic.SingleInputBitwiseAnalogLogicPlateBlock;
 import commoble.morered.bitwise_logic.SingleInputBitwiseLogicPlateBlock;
 import commoble.morered.bitwise_logic.TwoInputBitwiseLogicPlateBlock;
@@ -178,6 +180,7 @@ public class MoreRed
 	public final RegistryObject<BundledCableBlock> bundledNetworkCableBlock;
 	public final RegistryObject<BundledCablePostBlock> bundledCablePostBlock;
 	public final RegistryObject<BundledCableRelayPlateBlock> bundledCableRelayPlateBlock;
+	public final RegistryObject<MatrixInputBlock> matrixInputBlock;
 
 	public final RegistryObject<WireSpoolItem> redwireSpoolItem;
 	public final RegistryObject<Item> bundledCableSpoolItem;
@@ -193,6 +196,7 @@ public class MoreRed
 	public final RegistryObject<BlockEntityType<BundledCableRelayPlateBlockEntity>> bundledCableRelayPlateBeType;
 	public final RegistryObject<BlockEntityType<ChanneledPowerStorageBlockEntity>> bitwiseLogicGateBeType;
 	public final RegistryObject<BlockEntityType<AnalogPowerStorageBlockEntity>> analogLogicGateBeType;
+	public final RegistryObject<BlockEntityType<MatrixInputBlockEntity>> matrixInputBeType;
 
 	public final RegistryObject<MenuType<SolderingMenu>> solderingMenuType;
 	public final RegistryObject<SolderingRecipeSerializer> solderingSerializer;
@@ -240,6 +244,8 @@ public class MoreRed
 			() -> new BundledCablePostBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASEDRUM).strength(2F, 5F)));
 		bundledCableRelayPlateBlock = registerBlockItem(blocks, items, ObjectNames.BUNDLED_CABLE_RELAY_PLATE,
 			() -> new BundledCableRelayPlateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASEDRUM).strength(2F, 5F)));
+		matrixInputBlock = registerBlockItem(blocks, items, ObjectNames.MATRIX_INPUT,
+				() -> new MatrixInputBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).strength(0F).sound(SoundType.WOOD)));
 		
 		redAlloyWireBlock = registerBlockItem(blocks, items, ObjectNames.RED_ALLOY_WIRE, 
 			() -> new RedAlloyWireBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).pushReaction(PushReaction.DESTROY).noCollission().instabreak()),
@@ -337,6 +343,10 @@ public class MoreRed
 			() -> BlockEntityType.Builder.of(BundledCableRelayPlateBlockEntity::new,
 				bundledCableRelayPlateBlock.get())
 			.build(null));
+		matrixInputBeType = blockEntityTypes.register(ObjectNames.MATRIX_INPUT_ENTITY,
+				() -> BlockEntityType.Builder.of(MatrixInputBlockEntity::new,
+						matrixInputBlock.get())
+					.build(null));
 		bitwiseLogicGateBeType = blockEntityTypes.register(ObjectNames.BITWISE_LOGIC_PLATE,
 			() -> BlockEntityType.Builder.of(ChanneledPowerStorageBlockEntity::new,
 				Util.make(() ->
@@ -442,6 +452,8 @@ public class MoreRed
 		cableConnectors.put(bundledCableBlock, AbstractWireBlock::canWireConnectToAdjacentWireOrCable);
 		BundledCableRelayPlateBlock cablePlateBlock = bundledCableRelayPlateBlock.get();
 		cableConnectors.put(cablePlateBlock, cablePlateBlock::canConnectToAdjacentCable);
+		MatrixInputBlock matrixInputBlock = this.matrixInputBlock.get();
+		cableConnectors.put(matrixInputBlock, matrixInputBlock::canConnectToAdjacentCable);
 		this.bitwiseLogicPlates.values().stream()
 			.map(rob -> rob.get())
 			// eclipse compiler allows a method reference to canConnectToAdjacentCable in the put here

@@ -145,6 +145,7 @@ public class ClientProxy
 		ItemBlockRenderTypes.setRenderLayer(MoreRed.get().redwirePostPlateBlock.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(MoreRed.get().redwirePostRelayPlateBlock.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(MoreRed.get().bundledCableRelayPlateBlock.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(MoreRed.get().matrixInputBlock.get(), RenderType.cutout());
 		
 		event.enqueueWork(ClientProxy::afterClientSetup);
 	}
@@ -174,6 +175,7 @@ public class ClientProxy
 		event.register(ColorHandlers::getRedwirePostBlockTint, MoreRed.get().redwirePostPlateBlock.get());
 		event.register(ColorHandlers::getRedwirePostBlockTint, MoreRed.get().redwirePostRelayPlateBlock.get());
 		event.register(ColorHandlers::getRedAlloyWireBlockTint, MoreRed.get().redAlloyWireBlock.get());
+		event.register(ColorHandlers::getMatrixInputBlockTint, MoreRed.get().matrixInputBlock.get());
 	}
 
 	public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event)
@@ -185,6 +187,7 @@ public class ClientProxy
 		event.register(ColorHandlers::getRedwirePostItemTint, MoreRed.get().redwirePostPlateBlock.get().asItem());
 		event.register(ColorHandlers::getRedwirePostItemTint, MoreRed.get().redwirePostRelayPlateBlock.get().asItem());
 		event.register(ColorHandlers::getRedAlloyWireItemTint, MoreRed.get().redAlloyWireBlock.get().asItem());
+		event.register(ColorHandlers::getMatrixInputItemTint, MoreRed.get().matrixInputBlock.get().asItem());
 	}
 
 	static void onRegisterRenderers(RegisterRenderers event)

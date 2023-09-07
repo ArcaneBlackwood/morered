@@ -3,6 +3,7 @@ package commoble.morered.client;
 import java.util.Optional;
 
 import commoble.morered.MoreRed;
+import commoble.morered.bitwise_logic.MatrixInputBlockEntity;
 import commoble.morered.plate_blocks.InputState;
 import commoble.morered.plate_blocks.LatchBlock;
 import commoble.morered.plate_blocks.LogicFunction;
@@ -204,6 +205,22 @@ public class ColorHandlers
 	}
 	
 	public static int getRedAlloyWireItemTint(ItemStack stack, int tintIndex)
+	{
+		return tintIndex >= 0 ? UNLIT : NO_TINT;
+	}
+	
+	public static int getMatrixInputBlockTint(BlockState state, BlockAndTintGetter world, BlockPos pos, int tintIndex) {
+		if (tintIndex < 0 || tintIndex > 16) return NO_TINT;
+		BlockEntity be = world.getBlockEntity(pos);
+		if (be instanceof MatrixInputBlockEntity matrixBe) {
+			if (tintIndex == 16) {
+				return matrixBe.GetReset() ? LIT : UNLIT;
+			}
+			return matrixBe.getPower(tintIndex) > 0 ? LIT : UNLIT;
+		}
+		return NO_TINT;
+	}
+	public static int getMatrixInputItemTint(ItemStack stack, int tintIndex)
 	{
 		return tintIndex >= 0 ? UNLIT : NO_TINT;
 	}
